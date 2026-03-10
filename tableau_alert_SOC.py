@@ -27,9 +27,9 @@ st.markdown("""
         --text-primary: #f1f5f9;
         --text-secondary: #94a3b8;
         --accent-blue: #38bdf8;
-        --accent-red: #ef4444;
-        --accent-orange: #f97316;
-        --accent-green: #10b981;
+        --accent-red: #ff0000;
+        --accent-orange: #ff9900;
+        --accent-green: #00ff00;
         --border-color: #334155;
         --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
@@ -92,6 +92,16 @@ st.markdown("""
         padding: 1rem 1.5rem;
         border: 1px solid var(--border-color);
         text-align: center;
+        /* flex layout for consistent vertical spacing */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 120px;             /* force same height */
+    }
+    .metric-card.alert-card {
+        /* highlight alert card when there are alerts */
+        border-color: var(--accent-red);
+        box-shadow: 0 0 12px var(--accent-red);
     }
     .metric-card .label {
         color: var(--text-secondary);
@@ -431,8 +441,9 @@ with col1:
 with col2:
     alert_count = len(alert_table)
     pct = (alert_count / len(df) * 100) if len(df) > 0 else 0
-    st.markdown(f"""
-    <div class="metric-card">
+extra_class = " alert-card" if alert_count > 0 else ""
+        st.markdown(f"""
+    <div class="metric-card{extra_class}">
         <div class="label">Alertes détectées</div>
         <div class="value">{alert_count}</div>
         <div class="delta">{pct:.1f}% du total</div>
@@ -512,11 +523,11 @@ if not filtered_alerts.empty:
     # Style conditionnel sur la priorité
     def color_priority(val):
         if val == 'High':
-            return 'background-color: rgba(239, 68, 68, 0.2); color: #fecaca;'
+            return 'background-color: rgba(255, 0, 0, 0.4); color: #ffffff; font-weight: 600;'
         elif val == 'Medium':
-            return 'background-color: rgba(249, 115, 22, 0.2); color: #fed7aa;'
+            return 'background-color: rgba(255, 153, 0, 0.4); color: #ffffff; font-weight: 600;'
         elif val == 'Low':
-            return 'background-color: rgba(16, 185, 129, 0.2); color: #a7f3d0;'
+            return 'background-color: rgba(0, 255, 0, 0.4); color: #000000; font-weight: 600;'
         return ''
 
     styled = filtered_alerts.style.applymap(color_priority, subset=['priority'])
@@ -546,8 +557,11 @@ if not filtered_alerts.empty:
                           color='priority', symbol='attack_type',
                           hover_data=['temp_c', 'vibration_g', 'energy_kw', 'event'],
                           title="Alertes par priorité et type",
-                          color_discrete_map={'High':'#ef4444', 'Medium':'#f97316', 'Low':'#10b981'})
+                          color_discrete_map={'High':'#ff0000', 'Medium':'#ff9900', 'Low':'#00ff00'},
+                          size='priority_score', size_max=12, opacity=0.8)
         fig1.update_layout(
+            template='plotly_dark',
+            hovermode='closest',
             plot_bgcolor='rgba(0,0,0,0)',
             paper_bgcolor='rgba(0,0,0,0)',
             font=dict(color='#f1f5f9'),  # Texte général
@@ -574,8 +588,10 @@ if not filtered_alerts.empty:
         attack_counts.columns = ['attack_type', 'count']
         fig2 = px.bar(attack_counts, x='attack_type', y='count', color='attack_type',
                       title="Nombre d'alertes par type",
-                      color_discrete_sequence=px.colors.sequential.Blues)
+                      color_discrete_sequence=px.colors.qualitative.Bold,
+                      template='plotly_dark')
         fig2.update_layout(
+            template='plotly_dark',
             plot_bgcolor='rgba(0,0,0,0)',
             paper_bgcolor='rgba(0,0,0,0)',
             font=dict(color='#f1f5f9'),
@@ -600,7 +616,8 @@ if not filtered_alerts.empty:
     # Histogramme des scores
     fig3 = px.histogram(filtered_alerts, x='priority_score', nbins=20,
                         title="Distribution des scores de priorité",
-                        color_discrete_sequence=['#38bdf8'])
+                        color_discrete_sequence=['#38bdf8'],
+                        template='plotly_dark')
     fig3.update_layout(
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
