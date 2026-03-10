@@ -100,7 +100,7 @@ st.markdown("""
     }
     .metric-card.alert-card {
         /* highlight alert card when there are alerts */
-        border-color: var(--accent-red);
+        /*border-color: var(--accent-red);*/
         box-shadow: 0 0 6px var(--accent-red);
     }
     .metric-card .label {
