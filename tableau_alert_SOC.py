@@ -441,8 +441,8 @@ with col1:
 with col2:
     alert_count = len(alert_table)
     pct = (alert_count / len(df) * 100) if len(df) > 0 else 0
-extra_class = " alert-card" if alert_count > 0 else ""
-        st.markdown(f"""
+    extra_class = " alert-card" if alert_count > 0 else ""
+    st.markdown(f"""
     <div class="metric-card{extra_class}">
         <div class="label">Alertes détectées</div>
         <div class="value">{alert_count}</div>
