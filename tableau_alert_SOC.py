@@ -111,7 +111,7 @@ st.markdown("""
     }
     .metric-card .value {
         color: var(--text-primary);
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: 600;
         margin: 0.25rem 0;
     }
