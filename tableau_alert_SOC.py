@@ -66,6 +66,25 @@ st.markdown("""
         color: var(--text-secondary);
     }
 
+    /* Rendre les étiquettes des contrôles de la barre latérale plus visibles */
+    section[data-testid="stSidebar"] label {
+        color: var(--text-primary) !important;
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+    /* Spécifique aux types de widgets si nécessaire */
+    section[data-testid="stSidebar"] .stSlider label,
+    section[data-testid="stSidebar"] .stRadio label,
+    section[data-testid="stSidebar"] .stNumberInput label,
+    section[data-testid="stSidebar"] .stTextInput label,
+    section[data-testid="stSidebar"] .stSelectbox label,
+    section[data-testid="stSidebar"] .stCheckbox label {
+        color: var(--text-primary) !important;
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
     /* Cartes de métriques */
     .metric-card {
         background-color: var(--bg-card);
@@ -140,13 +159,108 @@ st.markdown("""
     .plot-container {
         background-color: transparent !important;
     }
+
+    /* En-tête personnalisé */
+    .header {
+        background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-green) 100%);
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        color: var(--bg-primary);
+        font-size: 1.4rem;
+        font-weight: 600;
+        white-space: nowrap;            /* ensure single line */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Cartes métriques dimension uniforme */
+    .metric-card {
+        background-color: var(--bg-card);
+        border-radius: 8px;
+        padding: 1rem 1.5rem;
+        border: 1px solid var(--border-color);
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        transition: transform 0.2s;
+        min-height: 120px;             /* force same height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* Amélioration des tableaux */
+    .dataframe tbody tr:hover {
+        background-color: rgba(255,255,255,0.1) !important;
+    }
+    .dataframe th {
+        background-color: var(--bg-secondary) !important;
+        color: var(--accent-blue) !important;
+        font-weight: 600;
+        padding: 0.5rem;
+        font-size: 1rem;
+        text-transform: uppercase;
+    }
+    .dataframe td {
+        color: var(--text-primary) !important;
+        border-bottom: 1px solid var(--border-color);
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+    .dataframe thead th {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+    }
+
+    /* Effet sur les cartes métriques */
+    .metric-card {
+        background-color: var(--bg-card);
+        border-radius: 8px;
+        padding: 1rem 1.5rem;
+        border: 1px solid var(--border-color);
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        transition: transform 0.2s;
+    }
+    .metric-card:hover {
+        transform: translateY(-3px);
+    }
+
+    /* Style des boutons amélioré */
+    .stButton button {
+        background-color: var(--accent-blue);
+        color: var(--bg-primary);
+        font-weight: 500;
+        border: none;
+        border-radius: 4px;
+        padding: 0.4rem 1rem;
+        transition: background-color 0.2s, transform 0.1s;
+    }
+    .stButton button:hover {
+        background-color: #0ea5e9;
+        transform: scale(1.02);
+    }
+
+    /* Lignes alternées pour les tableaux */
+    .dataframe tbody tr:nth-child(odd) {
+        background-color: #1e293b;
+    }
+    .dataframe tbody tr:nth-child(even) {
+        background-color: #161e2b;
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # ------------------------------------------------------------
 # Titre de l'application
 # ------------------------------------------------------------
-st.markdown("## SOC Industriel - Tableau de bord de détection d'anomalies")
+
+st.markdown("""
+<div class="header">
+    <span>SOC Industriel - Tableau de bord de détection d'anomalies</span>
+</div>
+""", unsafe_allow_html=True)
 st.markdown("Analyse des données de capteurs et génération d'alertes pour le SOC.")
 
 # ------------------------------------------------------------
@@ -346,34 +460,43 @@ with col4:
 # ------------------------------------------------------------
 # Filtres interactifs
 # ------------------------------------------------------------
+
 st.markdown("### Filtres")
 
 if not alert_table.empty:
-    colf1, colf2, colf3, colf4 = st.columns(4)
-    with colf1:
-        min_date = alert_table['timestamp'].min().date()
-        max_date = alert_table['timestamp'].max().date()
-        start_date = st.date_input("Date début", min_date, key="start")
-        end_date = st.date_input("Date fin", max_date, key="end")
-    with colf2:
-        priorities = st.multiselect("Priorité", options=alert_table['priority'].unique(),
-                                    default=alert_table['priority'].unique(), key="prio")
-    with colf3:
-        attack_types = st.multiselect("Type d'attaque", 
-                                      options=[x for x in alert_table['attack_type'].unique() if pd.notna(x)],
-                                      default=alert_table['attack_type'].unique(), key="attack")
-    with colf4:
-        log_levels = st.multiselect("Log level",
-                                    options=[x for x in alert_table['log_level'].unique() if pd.notna(x)],
-                                    default=alert_table['log_level'].unique(), key="log")
+    with st.expander("Afficher/masquer les filtres", expanded=True):
+        colf1, colf2, colf3, colf4 = st.columns(4)
+        with colf1:
+            min_date = alert_table['timestamp'].min().date()
+            max_date = alert_table['timestamp'].max().date()
+            start_date = st.date_input("Date début", min_date, key="start")
+            end_date = st.date_input("Date fin", max_date, key="end")
+        with colf2:
+            prio_options = ["All"] + list(alert_table['priority'].unique())
+            priorities = st.selectbox("Priorité", options=prio_options,
+                                      index=0, key="prio")
+        with colf3:
+            atk_options = ["All"] + [x for x in alert_table['attack_type'].unique() if pd.notna(x)]
+            attack_types = st.selectbox("Type d'attaque", 
+                                        options=atk_options,
+                                        index=0, key="attack")
+        with colf4:
+            log_options = ["All"] + [x for x in alert_table['log_level'].unique() if pd.notna(x)]
+            log_levels = st.selectbox("Log level",
+                                      options=log_options,
+                                      index=0, key="log")
 
+    # build mask respecting 'All' selections
     mask = (
         (alert_table['timestamp'].dt.date >= start_date) &
-        (alert_table['timestamp'].dt.date <= end_date) &
-        (alert_table['priority'].isin(priorities)) &
-        (alert_table['attack_type'].isin(attack_types)) &
-        (alert_table['log_level'].isin(log_levels))
+        (alert_table['timestamp'].dt.date <= end_date)
     )
+    if priorities != "All":
+        mask &= (alert_table['priority'] == priorities)
+    if attack_types != "All":
+        mask &= (alert_table['attack_type'] == attack_types)
+    if log_levels != "All":
+        mask &= (alert_table['log_level'] == log_levels)
     filtered_alerts = alert_table[mask]
     st.markdown(f"**{len(filtered_alerts)} alertes affichées**")
 else:
