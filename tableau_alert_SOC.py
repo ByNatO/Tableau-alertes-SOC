@@ -172,7 +172,7 @@ st.markdown("""
 
     /* En-tête personnalisé */
     .header {
-        background: blue; /* linear-gradient(90deg, var(--accent-blue) 20%, var(--accent-green) 60%);*/
+        background:  linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-green) 50%);
         padding: 1rem 1.5rem;
         border-radius: 8px;
         margin-bottom: 1rem;
