@@ -565,6 +565,10 @@ if not filtered_alerts.empty:
         return ''
 
     styled = filtered_display.style.applymap(color_priority, subset=['Priorité'])
+    # ensure header text is black for readability
+    styled = styled.set_table_styles([
+        {'selector': 'th', 'props': [('color', 'black')]}
+    ])
     st.dataframe(styled, use_container_width=True, height=400)
 
     # Téléchargement CSV
