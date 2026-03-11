@@ -421,6 +421,22 @@ if not alerts.empty:
                   'priority', 'priority_score', 'anomaly_z', 'anomaly_if']
     alert_cols = [c for c in alert_cols if c in alerts.columns]
     alert_table = alerts[alert_cols].sort_values('timestamp')
+    # conserver version affichable avec noms lisibles
+    friendly = {
+        'timestamp': 'Date',
+        'temp_c': 'Température (°C)',
+        'vibration_g': 'Vibration (g)',
+        'energy_kw': 'Énergie (kW)',
+        'log_level': 'Niveau log',
+        'event': 'Événement',
+        'label': 'Label',
+        'attack_type': "Type d'attaque",
+        'priority': 'Priorité',
+        'priority_score': 'Score priorité',
+        'anomaly_z': 'Anomalie Z',
+        'anomaly_if': 'Anomalie IF'
+    }
+    alert_table_display = alert_table.rename(columns=friendly)
 else:
     alert_table = pd.DataFrame()
 
@@ -521,6 +537,23 @@ else:
 st.markdown("### Liste des alertes")
 
 if not filtered_alerts.empty:
+    # préparer version affichable avec noms de colonnes lisibles
+    friendly = {
+        'timestamp': 'Date',
+        'temp_c': 'Température (°C)',
+        'vibration_g': 'Vibration (g)',
+        'energy_kw': 'Énergie (kW)',
+        'log_level': 'Niveau log',
+        'event': 'Événement',
+        'label': 'Label',
+        'attack_type': "Type d'attaque",
+        'priority': 'Priorité',
+        'priority_score': 'Score priorité',
+        'anomaly_z': 'Anomalie Z',
+        'anomaly_if': 'Anomalie IF'
+    }
+    filtered_display = filtered_alerts.rename(columns=friendly)
+
     # Style conditionnel sur la priorité
     def color_priority(val):
         if val == 'High':
@@ -531,11 +564,11 @@ if not filtered_alerts.empty:
             return 'background-color: rgba(0, 255, 0, 0.4); color: #000000; font-weight: 600;'
         return ''
 
-    styled = filtered_alerts.style.applymap(color_priority, subset=['priority'])
+    styled = filtered_display.style.applymap(color_priority, subset=['Priorité'])
     st.dataframe(styled, use_container_width=True, height=400)
 
     # Téléchargement CSV
-    csv = filtered_alerts.to_csv(index=False).encode('utf-8')
+    csv = filtered_display.to_csv(index=False).encode('utf-8')
     st.download_button(
         label="Télécharger les alertes filtrées (CSV)",
         data=csv,
