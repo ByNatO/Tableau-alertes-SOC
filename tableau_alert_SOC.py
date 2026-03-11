@@ -182,6 +182,7 @@ st.markdown("""
         white-space: nowrap;            /* ensure single line */
         overflow: hidden;
         text-overflow: ellipsis;
+        text-align: center;
     }
 
     /* Cartes métriques dimension uniforme */
