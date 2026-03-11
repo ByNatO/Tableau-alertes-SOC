@@ -268,7 +268,7 @@ st.markdown("""
 
 st.markdown("""
 <div class="header">
-    <span>SOC Industriel - Tableau de bord de détection d'anomalies</span>
+    <span>SOC Industriel - Détection d'anomalies</span>
 </div>
 """, unsafe_allow_html=True)
 st.markdown("Analyse des données de capteurs et génération d'alertes pour le SOC.")
