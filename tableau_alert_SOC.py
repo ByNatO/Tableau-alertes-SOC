@@ -117,7 +117,7 @@ st.markdown("""
     }
     .metric-card .delta {
         color: var(--accent-blue);
-        font-size: 0.45rem;
+        font-size: 0.50rem;
     }
 
     /* Tableau */
