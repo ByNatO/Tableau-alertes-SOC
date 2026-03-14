@@ -682,6 +682,6 @@ else:
 # ------------------------------------------------------------
 st.markdown("""
 <div class="footer">
-    SOC Dashboard v3.0 | Détection temps réel | Propulsé par Streamlit, Pandas, Scikit-learn
+    © Omar Badiane | SOC Dashboard v3.0 | Streamlit • Pandas • Scikit-learn • Plotly
 </div>
 """, unsafe_allow_html=True)
