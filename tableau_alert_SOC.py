@@ -262,6 +262,27 @@ st.markdown("""
         margin-bottom: 0.75rem;
     }
 
+    .section-block {
+        padding: 1.25rem 1.5rem;
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(243,244,246,0.95) 0%, rgba(255,255,255,0.95) 100%);
+        border: 1px solid var(--border-color);
+        margin-bottom: 1.8rem;
+        box-shadow: 0 10px 24px rgba(15,23,42,0.05);
+    }
+
+    .section-split {
+        padding: 0.8rem 1rem;
+        margin: 1.5rem 0;
+        border-radius: 16px;
+        background: linear-gradient(90deg, #e0f2fe 0%, #eff6ff 50%, #f8fafc 100%);
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+        font-weight: 700;
+        text-align: center;
+        box-shadow: 0 8px 20px rgba(14,165,233,0.12);
+    }
+
     /* Stronger button emphasis */
     .stButton button {
         box-shadow: 0 6px 18px rgba(14,165,233,0.12);
@@ -564,6 +585,7 @@ else:
 # Tableau des alertes
 # ------------------------------------------------------------
 st.markdown("### Liste des alertes")
+st.markdown('<div class="section-block">', unsafe_allow_html=True)
 
 if not filtered_alerts.empty:
     # préparer version affichable avec noms de colonnes lisibles
@@ -608,13 +630,17 @@ if not filtered_alerts.empty:
         file_name=f"alertes_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
         mime="text/csv"
     )
+    st.markdown('</div>', unsafe_allow_html=True)
 else:
     st.write("Aucune alerte à afficher.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # ------------------------------------------------------------
 # Graphiques
 # ------------------------------------------------------------
+st.markdown('<div class="section-split">Transition vers les analyses graphiques</div>', unsafe_allow_html=True)
 st.markdown("### Analyses graphiques")
+st.markdown('<div class="section-block">', unsafe_allow_html=True)
 
 if not filtered_alerts.empty:
     colg1, colg2 = st.columns(2)
@@ -708,9 +734,11 @@ if not filtered_alerts.empty:
     )
     fig3.update_traces(marker_line_width=0.6, marker_line_color='#ffffff', opacity=0.95)
     st.plotly_chart(fig3, use_container_width=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 else:
     st.info("Ajustez les paramètres pour générer des alertes et visualiser les graphiques.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # ------------------------------------------------------------
 # Pied de page
