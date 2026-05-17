@@ -21,16 +21,16 @@ st.markdown("""
 <style>
     /* Variables */
     :root {
-        --bg-primary: #0f172a;
-        --bg-secondary: #1e293b;
-        --bg-card: #1e293b;
-        --text-primary: #f1f5f9;
-        --text-secondary: #94a3b8;
-        --accent-blue: #38bdf8;
-        --accent-red: #ff0000;
-        --accent-orange: #ff9900;
-        --accent-green: #00ff00;
-        --border-color: #334155;
+        --bg-primary: #ffffff; /* page background */
+        --bg-secondary: #f8fafc; /* sidebar / header backgrounds */
+        --bg-card: #ffffff; /* cards and tables */
+        --text-primary: #0f172a; /* main text (dark) */
+        --text-secondary: #475569; /* secondary text */
+        --accent-blue: #0ea5e9;
+        --accent-red: #ef4444;
+        --accent-orange: #f59e0b;
+        --accent-green: #10b981;
+        --border-color: #e2e8f0; /* light border */
         --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
@@ -176,7 +176,7 @@ st.markdown("""
         padding: 1rem 1.5rem;
         border-radius: 8px;
         margin-bottom: 1rem;
-        color: var(--bg-primary);
+        color: var(--text-primary);
         font-size: 1.1rem;
         font-weight: 600;
         white-space: nowrap;            /* ensure single line */
@@ -255,10 +255,10 @@ st.markdown("""
 
     /* Lignes alternées pour les tableaux */
     .dataframe tbody tr:nth-child(odd) {
-        background-color: #1e293b;
+        background-color: #ffffff;
     }
     .dataframe tbody tr:nth-child(even) {
-        background-color: #161e2b;
+        background-color: #f8fafc;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -598,25 +598,25 @@ if not filtered_alerts.empty:
                           color_discrete_map={'High':'#ff0000', 'Medium':'#ff9900', 'Low':'#00ff00'},
                           size='priority_score', size_max=12, opacity=0.8)
         fig1.update_layout(
-            template='plotly_dark',
+            template='plotly_white',
             hovermode='closest',
             plot_bgcolor='rgba(0,0,0,0)',
             paper_bgcolor='rgba(0,0,0,0)',
-            font=dict(color='#f1f5f9'),  # Texte général
-            title_font=dict(color='#f1f5f9'),  # Titre
+            font=dict(color='#0f172a'),  # Texte général
+            title_font=dict(color='#0f172a'),  # Titre
             xaxis=dict(
-                gridcolor='#334155',
-                title_font=dict(color='#f1f5f9'),
-                tickfont=dict(color='#f1f5f9')
+                gridcolor='#e2e8f0',
+                title_font=dict(color='#0f172a'),
+                tickfont=dict(color='#0f172a')
             ),
             yaxis=dict(
-                gridcolor='#334155',
-                title_font=dict(color='#f1f5f9'),
-                tickfont=dict(color='#f1f5f9')
+                gridcolor='#e2e8f0',
+                title_font=dict(color='#0f172a'),
+                tickfont=dict(color='#0f172a')
             ),
             legend=dict(
-                font=dict(color='#f1f5f9'),
-                title_font=dict(color='#f1f5f9')
+                font=dict(color='#0f172a'),
+                title_font=dict(color='#0f172a')
             )
         )
         st.plotly_chart(fig1, use_container_width=True)
@@ -627,26 +627,26 @@ if not filtered_alerts.empty:
         fig2 = px.bar(attack_counts, x='attack_type', y='count', color='attack_type',
                       title="Nombre d'alertes par type",
                       color_discrete_sequence=px.colors.qualitative.Bold,
-                      template='plotly_dark')
+                      template='plotly_white')
         fig2.update_layout(
-            template='plotly_dark',
+            template='plotly_white',
             plot_bgcolor='rgba(0,0,0,0)',
             paper_bgcolor='rgba(0,0,0,0)',
-            font=dict(color='#f1f5f9'),
-            title_font=dict(color='#f1f5f9'),
+            font=dict(color='#0f172a'),
+            title_font=dict(color='#0f172a'),
             xaxis=dict(
-                gridcolor='#334155',
-                title_font=dict(color='#f1f5f9'),
-                tickfont=dict(color='#f1f5f9')
+                gridcolor='#e2e8f0',
+                title_font=dict(color='#0f172a'),
+                tickfont=dict(color='#0f172a')
             ),
             yaxis=dict(
-                gridcolor='#334155',
-                title_font=dict(color='#f1f5f9'),
-                tickfont=dict(color='#f1f5f9')
+                gridcolor='#e2e8f0',
+                title_font=dict(color='#0f172a'),
+                tickfont=dict(color='#0f172a')
             ),
             legend=dict(
-                font=dict(color='#f1f5f9'),
-                title_font=dict(color='#f1f5f9')
+                font=dict(color='#0f172a'),
+                title_font=dict(color='#0f172a')
             )
         )
         st.plotly_chart(fig2, use_container_width=True)
@@ -654,22 +654,22 @@ if not filtered_alerts.empty:
     # Histogramme des scores
     fig3 = px.histogram(filtered_alerts, x='priority_score', nbins=20,
                         title="Distribution des scores de priorité",
-                        color_discrete_sequence=['#38bdf8'],
-                        template='plotly_dark')
+                        color_discrete_sequence=['#0ea5e9'],
+                        template='plotly_white')
     fig3.update_layout(
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
-        font=dict(color='#f1f5f9'),
-        title_font=dict(color='#f1f5f9'),
+        font=dict(color='#0f172a'),
+        title_font=dict(color='#0f172a'),
         xaxis=dict(
-            gridcolor='#334155',
-            title_font=dict(color='#f1f5f9'),
-            tickfont=dict(color='#f1f5f9')
+            gridcolor='#e2e8f0',
+            title_font=dict(color='#0f172a'),
+            tickfont=dict(color='#0f172a')
         ),
         yaxis=dict(
-            gridcolor='#334155',
-            title_font=dict(color='#f1f5f9'),
-            tickfont=dict(color='#f1f5f9')
+            gridcolor='#e2e8f0',
+            title_font=dict(color='#0f172a'),
+            tickfont=dict(color='#0f172a')
         )
     )
     st.plotly_chart(fig3, use_container_width=True)
