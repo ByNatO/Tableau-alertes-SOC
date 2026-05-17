@@ -23,7 +23,7 @@ st.markdown("""
     :root {
         --bg-primary: #ffffff; /* page background */
         --bg-secondary: #f8fafc; /* sidebar / header backgrounds */
-        --bg-card: #ffffff; /* cards and tables */
+        --bg-card: #f3f4f6; /* cards and tables - light gray */
         --text-primary: #0f172a; /* main text (dark) */
         --text-secondary: #475569; /* secondary text */
         --accent-blue: #0ea5e9;
@@ -88,7 +88,7 @@ st.markdown("""
     /* Cartes de métriques */
     .metric-card {
         background-color: var(--bg-card);
-        border-radius: 8px;
+        border-radius: 12px;
         padding: 1rem 1.5rem;
         border: 1px solid var(--border-color);
         text-align: center;
@@ -124,7 +124,8 @@ st.markdown("""
     .dataframe {
         background-color: var(--bg-card) !important;
         border: 1px solid var(--border-color);
-        border-radius: 6px;
+        border-radius: 12px;
+        overflow: hidden;
     }
     .dataframe th {
         background-color: var(--bg-secondary) !important;
@@ -228,7 +229,7 @@ st.markdown("""
     /* Effet sur les cartes métriques */
     .metric-card {
         background-color: var(--bg-card);
-        border-radius: 8px;
+        border-radius: 12px;
         padding: 1rem 1.5rem;
         border: 1px solid var(--border-color);
         text-align: center;
@@ -254,9 +255,9 @@ st.markdown("""
     /* Plot wrapper to make charts stand out */
     .plot-wrapper {
         padding: 0.5rem;
-        border-radius: 8px;
+        border-radius: 12px;
         border: 1px solid var(--border-color);
-        background: linear-gradient(180deg, #ffffff, #fbfdff);
+        background-color: var(--bg-card);
         box-shadow: 0 8px 20px rgba(2,6,23,0.04);
         margin-bottom: 0.75rem;
     }
@@ -283,10 +284,10 @@ st.markdown("""
 
     /* Lignes alternées pour les tableaux */
     .dataframe tbody tr:nth-child(odd) {
-        background-color: #ffffff;
+        background-color: #f3f4f6;
     }
     .dataframe tbody tr:nth-child(even) {
-        background-color: #f8fafc;
+        background-color: #eef2f6;
     }
 </style>
 """, unsafe_allow_html=True)
