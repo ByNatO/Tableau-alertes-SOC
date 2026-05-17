@@ -177,6 +177,7 @@ st.markdown("""
         border-radius: 8px;
         margin-bottom: 1rem;
         color: var(--text-primary);
+        box-shadow: 0 6px 18px rgba(2,6,23,0.06);
         font-size: 1.1rem;
         font-weight: 600;
         white-space: nowrap;            /* ensure single line */
@@ -236,6 +237,33 @@ st.markdown("""
     }
     .metric-card:hover {
         transform: translateY(-3px);
+    }
+
+    /* Emphasize highlighted/alert cards */
+    .metric-card.alert-card {
+        border-left: 6px solid var(--accent-red);
+        box-shadow: 0 12px 32px rgba(239,68,68,0.08);
+        transform: translateY(-4px);
+    }
+
+    .metric-card .value {
+        font-size: 2rem;
+        color: var(--text-primary);
+    }
+
+    /* Plot wrapper to make charts stand out */
+    .plot-wrapper {
+        padding: 0.5rem;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background: linear-gradient(180deg, #ffffff, #fbfdff);
+        box-shadow: 0 8px 20px rgba(2,6,23,0.04);
+        margin-bottom: 0.75rem;
+    }
+
+    /* Stronger button emphasis */
+    .stButton button {
+        box-shadow: 0 6px 18px rgba(14,165,233,0.12);
     }
 
     /* Style des boutons amélioré */
@@ -619,6 +647,10 @@ if not filtered_alerts.empty:
                 title_font=dict(color='#0f172a')
             )
         )
+        # Make markers more prominent
+        fig1.update_traces(marker=dict(line=dict(width=1, color='#ffffff'), sizemode='area', opacity=0.95))
+        # increase max marker size for visibility
+        fig1.update_traces(marker_size=18)
         st.plotly_chart(fig1, use_container_width=True)
 
     with colg2:
@@ -627,7 +659,8 @@ if not filtered_alerts.empty:
         fig2 = px.bar(attack_counts, x='attack_type', y='count', color='attack_type',
                       title="Nombre d'alertes par type",
                       color_discrete_sequence=px.colors.qualitative.Bold,
-                      template='plotly_white')
+                  template='plotly_white')
+        fig2.update_traces(marker_line_width=0.6, marker_line_color='#ffffff', opacity=0.95)
         fig2.update_layout(
             template='plotly_white',
             plot_bgcolor='rgba(0,0,0,0)',
@@ -672,6 +705,7 @@ if not filtered_alerts.empty:
             tickfont=dict(color='#0f172a')
         )
     )
+    fig3.update_traces(marker_line_width=0.6, marker_line_color='#ffffff', opacity=0.95)
     st.plotly_chart(fig3, use_container_width=True)
 
 else:
