@@ -638,7 +638,7 @@ else:
 # ------------------------------------------------------------
 # Graphiques
 # ------------------------------------------------------------
-st.markdown('<div class="section-split">Transition vers les analyses graphiques</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-split">Analyses graphiques</div>', unsafe_allow_html=True)
 st.markdown("### Analyses graphiques")
 st.markdown('<div class="section-block">', unsafe_allow_html=True)
 
