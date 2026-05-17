@@ -564,7 +564,7 @@ if not filtered_alerts.empty:
             return 'background-color: rgba(0, 255, 0, 0.4); color: #000000; font-weight: 600;'
         return ''
 
-    styled = filtered_display.style.applymap(color_priority, subset=['Priorité'])
+    styled = filtered_display.style.map(color_priority, subset=['Priorité'])
     # ensure header text is black for readability
     styled = styled.set_table_styles([
         {'selector': 'th', 'props': [('color', 'black')]}
