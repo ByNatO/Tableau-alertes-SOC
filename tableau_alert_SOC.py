@@ -179,7 +179,7 @@ st.markdown("""
         margin-bottom: 1rem;
         color: #ffffff;
         box-shadow: 0 6px 18px rgba(2,6,23,0.06);
-        font-size: 1.1rem;
+        font-size: 1.5rem;
         font-weight: 600;
         white-space: nowrap;            /* ensure single line */
         overflow: hidden;
