@@ -1,6 +1,6 @@
 # SOC Dashboard - Détection d'anomalies industrielles
 
-Application Streamlit pour la visualisation et la détection d'anomalies sur des données de capteurs IoT/OT, destinée aux analystes SOC.
+Application Streamlit pour la visualisation et la détection d'anomalies sur des données de capteurs IoT/OT, destinée aux analystes SOC. Line démo: https://tableau-alertes-soc-uipqrmcqwwqz8fpcjgdfsu.streamlit.app/
 
 ## Fonctionnalités
 
